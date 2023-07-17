@@ -12,6 +12,7 @@ export const onLoad = () => {
     if (row.rowType !== 1) return;
     // get timestamp from message
     message.timestamp = `edited ${message.timestamp}`
+    message.content = message
     if (message.referencedMessage?.message) {
         message.referencedMessage.message.timestamp = `edited ${message.referencedMessage.message.timestamp}`
       }
