@@ -6,7 +6,6 @@ const RowManager = findByName("RowManager");
 const MessageStore = findByStoreName("MessageStore");
 
 let unpatch: Function;
-
 function snowflakeToDate(snowflake) {
     const dateBits = Number(BigInt.asUintN(64, snowflake) >> 22n);
     return new Date(dateBits + 1420070400000);
@@ -15,13 +14,13 @@ function snowflakeToDate(snowflake) {
 
 export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
-    if (row.rowType !== 1) return;
+    // if (row.rowType !== 1) return;
 
     // get timestamp from message
-    message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
-    if (message.referencedMessage?.message) {
-        message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
-      }
+    message.timestamp = `${row}`
+    // if (message.referencedMessage?.message) {
+    //     message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
+    //   }
   
     // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
