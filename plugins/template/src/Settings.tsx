@@ -3,6 +3,6 @@ const { FormText } = Forms;
 
 export default () => (
     <FormText>
-        Hello, world es!
+        Hello, world test!
     </FormText>
 )
