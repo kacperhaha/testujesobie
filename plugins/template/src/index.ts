@@ -10,7 +10,7 @@ export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
     if (row.rowType !== 1) return;
 
-    message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
+    // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
     
 
