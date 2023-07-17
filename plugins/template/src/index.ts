@@ -3,9 +3,10 @@ import {findByName, findByStoreName} from "@vendetta/metro";
 import Settings from "./Settings";
 
 const RowManager = findByName("RowManager");
-const UserStore = findByStoreName("UserStore");
+const MessageStore = findByStoreName("MessageStore");
 
 let unpatch: Function;
+
 function snowflakeToDate(snowflake) {
     const dateBits = Number(BigInt.asUintN(64, snowflake) >> 22n);
     return new Date(dateBits + 1420070400000);
@@ -14,7 +15,7 @@ function snowflakeToDate(snowflake) {
 
 export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
-    if (row.rowType !== 1) return;
+    // if (row.rowType !== 1) return;
 
     // get timestamp from message
     message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
@@ -31,8 +32,7 @@ export const onLoad = () => {
 };
 
 export const onUnload = () => {
-  unpatch?.();
-
-};
+    unpatch?.();
+  };
 
 export const settings = Settings;
