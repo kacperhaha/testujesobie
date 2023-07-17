@@ -26,11 +26,11 @@ export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
     if (row.rowType !== 1) return;
     // get timestamp from message
-    message.timestamp = `edited ${message.timestamp}`
+    // message.timestamp = `edited ${message.timestamp}`
     message.content = JSON.stringify(message, getCircularReplacer());
-    if (message.referencedMessage?.message) {
-        message.referencedMessage.message.timestamp = `edited ${message.referencedMessage.message.timestamp}`
-      }
+    // if (message.referencedMessage?.message) {
+    //     message.referencedMessage.message.timestamp = `edited ${message.referencedMessage.message.timestamp}`
+    //   }
   
     // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
