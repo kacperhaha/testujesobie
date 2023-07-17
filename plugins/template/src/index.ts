@@ -6,31 +6,21 @@ const RowManager = findByName("RowManager");
 const UserStore = findByStoreName("UserStore");
 
 let unpatch: Function;
-
-const getCircularReplacer = () => {
-    const seen = new WeakSet();
-    return (key, value) => {
-      if (typeof value === "object" && value !== null) {
-        if (seen.has(value)) {
-          return;
-        }
-        seen.add(value);
-      }
-      return value;
-    };
-  };
-  
+function snowflakeToDate(snowflake) {
+    const dateBits = Number(BigInt.asUintN(64, snowflake) >> 22n);
+    return new Date(dateBits + 1420070400000);
+}
 
 
 export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
     if (row.rowType !== 1) return;
+
     // get timestamp from message
-    // message.timestamp = `edited ${message.timestamp}`
-    message.content = JSON.stringify(message, getCircularReplacer());
-    // if (message.referencedMessage?.message) {
-    //     message.referencedMessage.message.timestamp = `edited ${message.referencedMessage.message.timestamp}`
-    //   }
+    message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
+    if (message.referencedMessage?.message) {
+        message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
+      }
   
     // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
