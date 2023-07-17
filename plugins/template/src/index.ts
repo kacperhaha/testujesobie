@@ -14,8 +14,8 @@ function snowflakeToDate(snowflake) {
 
 export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
-    // if (row.rowType !== 1) return;
-message.content = row
+    if (row.rowType !== 1) return;
+    message.content = row
     // get timestamp from message
     message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
     if (message.referencedMessage?.message) {
