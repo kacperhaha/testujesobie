@@ -1,5 +1,6 @@
 import {after} from "@vendetta/patcher";
 import {findByName, findByStoreName} from "@vendetta/metro";
+import Settings from "./Settings";
 
 const RowManager = findByName("RowManager");
 const UserStore = findByStoreName("UserStore");
@@ -21,4 +22,7 @@ export const onLoad = () => {
 
 export const onUnload = () => {
   unpatch?.();
+
 };
+
+export const settings = Settings;
