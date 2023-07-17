@@ -38,7 +38,7 @@ unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
         if (row.rowType !== 1) continue;
 
 
-        if (storage.isTimestamp && row.message.timestamp) {
+        if (row.message.timestamp) {
             row.message.timestamp = `${snowflakeToDate(row.message.id).toLocaleString()}`
             continue;
         }
