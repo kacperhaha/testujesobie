@@ -1,9 +1,12 @@
 import { logger } from "@vendetta";
 import Settings from "./Settings";
+import { findByName } from "@vendetta/metro";
+
+const ChatInput = findByName("ChatInput");
 
 export default {
     onLoad: () => {
-        logger.log("Hello world!");
+        logger.log(ChatInput);
     },
     onUnload: () => {
         logger.log("Goodbye, world.");
