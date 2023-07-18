@@ -40,9 +40,6 @@ export const onLoad = () => {
 
     
 
-
-  });
-
 unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
     const rows = JSON.parse(args[1]);
 
