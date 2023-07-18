@@ -13,32 +13,39 @@ function snowflakeToDate(snowflake) {
     const dateBits = Number(BigInt.asUintN(64, snowflake) >> 22n);
     return new Date(dateBits + 1420070400000);
 }
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+
+
 
 
 export const onLoad = () => {
   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
-    for ( const row of rows ) {
-      if (row.rowType !== 1) continue;
-
-
-      if (row.message.timestamp) {
-          row.message.timestamp = `${snowflakeToDate(row.message.id).toLocaleString()}`
-          continue;
-      }
-
-  }
-
-  /**
-   * Finally, re-stringify the row.
-   */
-  args[1] = JSON.stringify(rows);
-});
-    // message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
-
+    if (row.rowType !== 1) return;
+    // get timestamp from message
+    message.content = JSON.stringify(message, getCircularReplacer());
+    message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
+    // if (message.referencedMessage?.message) {
+    //     message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
+    //   }
   
     // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
     
+
+
+  });
 
 unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
     const rows = JSON.parse(args[1]);
