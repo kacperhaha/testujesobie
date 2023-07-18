@@ -16,20 +16,20 @@ function snowflakeToDate(snowflake) {
 
 
 export const onLoad = () => {
-//   unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
-//     if (row.rowType !== 1) return;
-//     // get timestamp from message
-//     message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
-//     if (message.referencedMessage?.message) {
-//         message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
-//       }
+  unpatch = after("generate", RowManager.prototype, ([row], {message}) => {
+    if (row.rowType !== 1) return;
+    // get timestamp from message
+    message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
+    // if (message.referencedMessage?.message) {
+    //     message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
+    //   }
   
-//     // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
+    // message.timestamp = `${message.timestamp} - ${UserStore.get(message.authorId)?.username}`
 
     
 
 
-//   });
+  });
 
 unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
     const rows = JSON.parse(args[1]);
