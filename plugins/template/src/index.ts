@@ -47,25 +47,25 @@ export const onLoad = () => {
 
   });
 
-unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
-    const rows = JSON.parse(args[1]);
+// unpatchUpdateRows = before("updateRows", DCDChatManager, args => {
+//     const rows = JSON.parse(args[1]);
 
-    for ( const row of rows ) {
-        if (row.rowType !== 1) continue;
+//     for ( const row of rows ) {
+//         if (row.rowType !== 1) continue;
 
 
-        if (row.message.timestamp) {
-            row.message.timestamp = `${snowflakeToDate(row.message.id).toLocaleString()}`
-            continue;
-        }
+//         if (row.message.timestamp) {
+//             row.message.timestamp = `${snowflakeToDate(row.message.id).toLocaleString()}`
+//             continue;
+//         }
 
-    }
+//     }
 
-    /**
-     * Finally, re-stringify the row.
-     */
-    args[1] = JSON.stringify(rows);
-});
+//     /**
+//      * Finally, re-stringify the row.
+//      */
+//     args[1] = JSON.stringify(rows);
+// });
 
 
 
