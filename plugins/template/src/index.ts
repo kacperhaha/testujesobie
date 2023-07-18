@@ -31,9 +31,10 @@ export const onLoad = () => {
     // get timestamp from message
     if (!message.timestamp) return;
     message.timestamp = `${snowflakeToDate(message.id).toLocaleString()}`
-    // if (message.referencedMessage?.message) {
-    //     message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
-    //   }
+    if (message.referencedMessage?.message) {
+      if(!message.referencedMessage.message.timestamp) return;
+        message.referencedMessage.message.timestamp = `${snowflakeToDate(message.referencedMessage.message.id).toLocaleString()}`
+      }
   
 
     
