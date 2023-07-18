@@ -1,6 +1,6 @@
 import { Forms } from "@vendetta/ui/components";
 import { storage } from "@vendetta/plugin";
-const { FormText } = Forms;
+const { FormText, FormInput } = Forms;
 import { useProxy } from "@vendetta/storage";
 
 export default () => {
