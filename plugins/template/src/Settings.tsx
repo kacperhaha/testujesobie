@@ -4,7 +4,7 @@ const { FormText, FormInput } = Forms;
 import { useProxy } from "@vendetta/storage";
 
 export default () => {
-    const [format, setFormat] = React.useState(storage.delay);
+    const [format, setFormat] = React.useState(storage.format);
 
 useProxy(storage);
 return (
