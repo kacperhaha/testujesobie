@@ -14,7 +14,7 @@ return (
           storage.format = v == "" ? null : v
           setFormat(format)
        }}
-       placeholder={"chuj"}
+       placeholder={"Custom Format"}
        title='Custom Timestamp Format'
     />
 
